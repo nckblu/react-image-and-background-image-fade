@@ -1,10 +1,19 @@
 import React from "react";
 import styled, { keyframes } from "styled-components";
 
-export const Loader = () => <Wrapper />;
+export const Loader = ({ isOnTop, hasLoaded, transitionTime }) => (
+  <Wrapper
+    isOnTop={isOnTop}
+    hasLoaded={hasLoaded}
+    transitionTime={transitionTime}
+  />
+);
 
 export default Loader;
 
+Loader.defaultProps = {
+  transitionTime: "0.3s",
+};
 const shine = keyframes`
   from {
     background-position: 0 0 ;
@@ -22,7 +31,9 @@ const Wrapper = styled.div`
   position: absolute;
   top: 0;
   left: 0;
-  z-index: -1;
+  z-index: ${props => (props.isOnTop ? 10 : -1)};
+  opacity: ${props => (props.isOnTop ? (props.hasLoaded ? 0 : 1) : 1)};
+  transition: opacity ${props => props.transitionTime} ease;
 
   &:before {
     content: "";
