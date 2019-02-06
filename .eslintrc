@@ -33,6 +33,7 @@
       "double"
     ],
     "no-mixed-spaces-and-tabs": "off",
-    "no-tabs": "off"
+    "no-tabs": "off",
+    "no-unused-expressions": "off"
   }
 }

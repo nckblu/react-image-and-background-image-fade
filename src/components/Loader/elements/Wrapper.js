@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { shine } from "../../keyframes";
+import { shine } from "../../../keyframes";
 
 export const Wrapper = styled.div`
   width: 100%;

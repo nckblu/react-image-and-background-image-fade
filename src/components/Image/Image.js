@@ -4,7 +4,7 @@ import Loader from "../Loader";
 import ImageLoader from "../ImageLoader";
 import Wrapper from "./elements/Wrapper";
 import Img from "./elements/Img";
-import defaults from "../defaults";
+import defaults from "../../defaults";
 
 export const Image = ({
   src,
@@ -13,6 +13,7 @@ export const Image = ({
   transitionTime,
   renderLoader,
   disablePlaceholder,
+  wrapperClassName,
   ...props
 }) => (
   <ImageLoader
@@ -33,7 +34,7 @@ export const Image = ({
       renderLoader,
     }) => {
       return (
-        <Wrapper width={width} height={height}>
+        <Wrapper width={width} height={height} className={wrapperClassName}>
           {hasLoaded && (
             <Img src={src} transitionTime={transitionTime} {...props} />
           )}
@@ -59,6 +60,7 @@ Image.propTypes = {
   transitionTime: PropTypes.string,
   renderLoader: PropTypes.func,
   disablePlaceholder: PropTypes.bool,
+  wrapperClassName: PropTypes.string,
 };
 
 Image.defaultProps = {

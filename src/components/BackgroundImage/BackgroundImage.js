@@ -3,7 +3,7 @@ import Loader from "../Loader";
 import ImageLoader from "../ImageLoader";
 import { Wrapper } from "./elements/Wrapper";
 import PropTypes from "prop-types";
-import defaults from "../defaults";
+import defaults from "../../defaults";
 
 export const BackgroundImage = ({
   src,
@@ -15,6 +15,8 @@ export const BackgroundImage = ({
   useChild,
   children,
   element,
+  lazyLoad,
+  wrapperClassName,
   ...props
 }) => (
   <ImageLoader
@@ -22,6 +24,7 @@ export const BackgroundImage = ({
     transitionTime={transitionTime}
     renderLoader={renderLoader}
     disablePlaceholder={disablePlaceholder}
+    lazyLoad={lazyLoad}
   >
     {({
       hasLoaded,
@@ -32,34 +35,30 @@ export const BackgroundImage = ({
       disablePlaceholder,
       renderLoader,
     }) => {
-      /*
-       * Preserve initial styles if the style prop is being used either on the
-       * child or a pass through prop to the BackgroundImage element
-       */
-      const style =
-        children && children.props && children.props.style
-          ? { ...children.props.style }
-          : {};
-
-      if (hasLoaded) {
-        style.backgroundImage = `url("${src}")`;
-      }
-
+      const backgroundImageStyle = { backgroundImage: `url("${src}")` };
+      let style;
       let childElement;
       if (useChild) {
         /*
          * When in useChild mode we need to clone the child, append the style
          * and add relative positioning for the loader.
          */
-        childElement = React.cloneElement(children, { style });
+        style =
+          children && children.props && children.props.style
+            ? { ...children.props.style }
+            : {};
         style.position = "relative";
+        hasLoaded ? (style = { ...style, ...backgroundImageStyle }) : style;
+        childElement = React.cloneElement(children, { style });
       } else {
         /*
          * When not in useChild mode we need to create a new element based on
          * the element prop, apply the styles and include the current children
          */
+        style = props.style ? { ...props.style } : {};
         style.width = width;
         style.height = height;
+        hasLoaded ? (style = { ...style, ...backgroundImageStyle }) : style;
         childElement = React.createElement(
           element,
           { ...props, style },
@@ -68,7 +67,7 @@ export const BackgroundImage = ({
       }
 
       return (
-        <Wrapper width={width} height={height}>
+        <Wrapper width={width} height={height} className={wrapperClassName}>
           {childElement}
           {shouldShowLoader && !disablePlaceholder && (
             <Fragment>
@@ -102,6 +101,8 @@ BackgroundImage.propTypes = {
     PropTypes.node,
   ]),
   element: PropTypes.string,
+  style: PropTypes.object,
+  wrapperClassName: PropTypes.string,
 };
 
 BackgroundImage.defaultProps = {

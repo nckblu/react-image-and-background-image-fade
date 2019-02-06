@@ -2,7 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import preloader from "image-preloader";
 import { cssTimeToMs } from "../../util";
-import defaults from "../defaults";
+import defaults from "../../defaults";
+import VisibilitySensor from "react-visibility-sensor";
 
 export class ImageLoader extends React.Component {
   static propTypes = {
@@ -10,9 +11,11 @@ export class ImageLoader extends React.Component {
     transitionTime: PropTypes.string,
     renderLoader: PropTypes.func,
     disablePlaceholder: PropTypes.bool,
+    lazyLoad: PropTypes.bool,
     children: PropTypes.oneOfType([
       PropTypes.arrayOf(PropTypes.node),
       PropTypes.node,
+      PropTypes.func,
     ]),
   };
 
@@ -20,14 +23,21 @@ export class ImageLoader extends React.Component {
     hasLoaded: false,
     hasFailed: false,
     shouldShowLoader: true,
+    visibilitySensorIsActive: true,
   };
 
   componentDidMount() {
-    const { src } = this.props;
-    preloader
-      .simplePreload(src)
-      .then(this.handleImageLoaderLoaded)
-      .catch(this.handleImageLoaderFailed);
+    if (!this.props.lazyLoad) {
+      this.preloadImage();
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.src !== this.props.src) {
+      if (!this.props.lazyLoad) {
+        this.preloadImage();
+      }
+    }
   }
 
   render() {
@@ -37,15 +47,22 @@ export class ImageLoader extends React.Component {
       renderLoader,
       disablePlaceholder,
       children,
+      lazyLoad,
     } = this.props;
-    const { hasLoaded, hasFailed, shouldShowLoader } = this.state;
+
+    const {
+      hasLoaded,
+      hasFailed,
+      shouldShowLoader,
+      visibilitySensorIsActive,
+    } = this.state;
     /*
      * When using ImageLoader the children prop should be a function.
      * Render calls this function with the props it requires to
      * fade in an image.
      * See https://reactjs.org/docs/render-props.html
      */
-    return children({
+    const childElement = children({
       hasLoaded,
       shouldShowLoader,
       hasFailed,
@@ -54,6 +71,28 @@ export class ImageLoader extends React.Component {
       disablePlaceholder,
       renderLoader,
     });
+
+    /*
+     * Wrap element in react visibility sensor when lazyLoad is true
+     */
+    return lazyLoad ? (
+      <VisibilitySensor
+        active={visibilitySensorIsActive}
+        onChange={this.handleVisibilityChange}
+      >
+        {childElement}
+      </VisibilitySensor>
+    ) : (
+      childElement
+    );
+  }
+
+  preloadImage() {
+    const { src } = this.props;
+    preloader
+      .simplePreload(src)
+      .then(this.handleImageLoaderLoaded)
+      .catch(this.handleImageLoaderFailed);
   }
 
   /*
@@ -78,6 +117,13 @@ export class ImageLoader extends React.Component {
 
   handleImageFailed = () => {
     this.setState({ hasFailed: true });
+  };
+
+  handleVisibilityChange = isVisible => {
+    if (!isVisible) return;
+    this.setState({ visibilitySensorIsActive: false });
+    console.log("WILL PRELOAD");
+    this.preloadImage();
   };
 }
 

@@ -1,7 +1,7 @@
 import React from "react";
-import Wrapper from "./elements/Wrapper";
-import defaults from "../defaults";
 import PropTypes from "prop-types";
+import Wrapper from "./elements/Wrapper";
+import defaults from "../../defaults";
 
 export const Loader = ({ isOnTop, hasLoaded, transitionTime }) => (
   <Wrapper
