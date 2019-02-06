@@ -57,5 +57,10 @@
   },
   "files": [
     "dist"
-  ]
+  ],
+  "dependencies": {
+    "image-preloader": "^1.1.1",
+    "prop-types": "^15.6.2",
+    "styled-components": "^4.1.3"
+  }
 }

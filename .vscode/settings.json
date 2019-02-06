@@ -1,0 +1,4 @@
+{
+  "stylelint.enable": false,
+  "prettier.stylelintIntegration": false
+}

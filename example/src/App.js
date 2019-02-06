@@ -1,13 +1,34 @@
-import React, { Component } from 'react'
+import React, { Component } from "react";
 
-import ExampleComponent from 'react-image-and-background-image-fade'
+// import { Image } from "react-image-and-background-image-fade";
+// import {
+//   Image,
+//   ImageLoader,
+//   // BackgroundImage,
+//   noho,
+// } from "react-image-and-background-image-fade";
+import { BackgroundImage } from "react-image-and-background-image-fade";
+// console.log("noho", noho);
 
 export default class App extends Component {
-  render () {
+  render() {
     return (
       <div>
-        <ExampleComponent text='Modern React component module' />
+        {/* <Image
+          height={400}
+          width={400}
+          src="https://images.unsplash.com/photo-1542838687-936f417d2f37?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2250&q=80"
+				/> */}
+
+        <BackgroundImage
+          useChild
+          src="https://images.unsplash.com/photo-1542838687-936f417d2f37?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2250&q=80"
+        >
+          <div
+            style={{ width: "500px", height: "500px", backgroundSize: "cover" }}
+          />
+        </BackgroundImage>
       </div>
-    )
+    );
   }
 }
