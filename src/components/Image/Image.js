@@ -1,9 +1,10 @@
 import React, { Fragment } from "react";
-import styled from "styled-components";
 import PropTypes from "prop-types";
 import Loader from "../Loader";
 import ImageLoader from "../ImageLoader";
-import { fadeIn } from "../../keyframes";
+import Wrapper from "./elements/Wrapper";
+import Img from "./elements/Img";
+import defaults from "../defaults";
 
 export const Image = ({
   src,
@@ -59,20 +60,9 @@ Image.propTypes = {
   renderLoader: PropTypes.func,
   disablePlaceholder: PropTypes.bool,
 };
+
 Image.defaultProps = {
-  transitionTime: "0.3s",
+  transitionTime: defaults.transitionTime,
 };
 
 export default Image;
-
-const Img = styled.img`
-  width: 100%;
-  height: 100%;
-  animation: ${fadeIn} ${props => props.transitionTime} ease;
-`;
-
-const Wrapper = styled.div`
-  width: ${props => props.width}px;
-  height: ${props => props.height}px;
-  position: relative;
-`;

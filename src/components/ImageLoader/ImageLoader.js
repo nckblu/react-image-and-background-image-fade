@@ -1,18 +1,19 @@
-import React, { Fragment } from "react";
-import styled, { keyframes } from "styled-components";
+import React from "react";
 import PropTypes from "prop-types";
 import preloader from "image-preloader";
 import { cssTimeToMs } from "../../util";
-import { fadeIn } from "../../keyframes";
+import defaults from "../defaults";
 
 export class ImageLoader extends React.Component {
   static propTypes = {
     src: PropTypes.string.isRequired,
-    width: PropTypes.string,
-    height: PropTypes.string,
     transitionTime: PropTypes.string,
     renderLoader: PropTypes.func,
     disablePlaceholder: PropTypes.bool,
+    children: PropTypes.oneOfType([
+      PropTypes.arrayOf(PropTypes.node),
+      PropTypes.node,
+    ]),
   };
 
   state = {
@@ -32,15 +33,18 @@ export class ImageLoader extends React.Component {
   render() {
     const {
       src,
-      width,
-      height,
       transitionTime,
       renderLoader,
       disablePlaceholder,
       children,
     } = this.props;
-    console.log("src", src);
     const { hasLoaded, hasFailed, shouldShowLoader } = this.state;
+    /*
+     * When using ImageLoader the children prop should be a function.
+     * Render calls this function with the props it requires to
+     * fade in an image.
+     * See https://reactjs.org/docs/render-props.html
+     */
     return children({
       hasLoaded,
       shouldShowLoader,
@@ -52,6 +56,14 @@ export class ImageLoader extends React.Component {
     });
   }
 
+  /*
+   * Once the image is loaded successfully this handler will be
+   * called, this will change the `hasLoaded` attribute to true
+   * then the `shouldShowLoader` attribute to false after
+   * the transition has completed. The reason we do this on a
+   * timeout is to ensure the loader is not hidden as soon as the
+   * image has loaded resulting in a 'flash'
+   */
   handleImageLoaderLoaded = () => {
     const { transitionTime } = this.props;
     const hideLoaderDelay = cssTimeToMs(transitionTime);
@@ -63,10 +75,14 @@ export class ImageLoader extends React.Component {
       }, hideLoaderDelay);
     });
   };
+
+  handleImageFailed = () => {
+    this.setState({ hasFailed: true });
+  };
 }
 
 ImageLoader.defaultProps = {
-  transitionTime: "0.3s",
+  transitionTime: defaults.transitionTime,
 };
 
 export default ImageLoader;

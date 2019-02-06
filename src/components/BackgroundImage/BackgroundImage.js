@@ -3,6 +3,7 @@ import Loader from "../Loader";
 import ImageLoader from "../ImageLoader";
 import { Wrapper } from "./elements/Wrapper";
 import PropTypes from "prop-types";
+import defaults from "../defaults";
 
 export const BackgroundImage = ({
   src,
@@ -18,8 +19,6 @@ export const BackgroundImage = ({
 }) => (
   <ImageLoader
     src={src}
-    width={width}
-    height={height}
     transitionTime={transitionTime}
     renderLoader={renderLoader}
     disablePlaceholder={disablePlaceholder}
@@ -92,8 +91,8 @@ export const BackgroundImage = ({
 
 BackgroundImage.propTypes = {
   src: PropTypes.string.isRequired,
-  width: PropTypes.string.isRequired,
-  height: PropTypes.string.isRequired,
+  width: PropTypes.string,
+  height: PropTypes.string,
   transitionTime: PropTypes.string,
   renderLoader: PropTypes.func,
   disablePlaceholder: PropTypes.bool,
@@ -106,7 +105,7 @@ BackgroundImage.propTypes = {
 };
 
 BackgroundImage.defaultProps = {
-  transitionTime: "0.3s",
+  transitionTime: defaults.transitionTime,
   element: "div",
 };
 
