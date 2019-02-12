@@ -21,3 +21,10 @@ export const cssTimeToMs = cssTime => {
 
   return milliseconds;
 };
+
+export const getAspectRatioPercentage = (width, height) => {
+  const widthNumber = parseInt(width, 10);
+  const heightNumber = parseInt(height, 10);
+  const ratio = (heightNumber / widthNumber) * 100;
+  return `${ratio}%`;
+};

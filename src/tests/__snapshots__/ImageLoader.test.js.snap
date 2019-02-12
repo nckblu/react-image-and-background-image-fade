@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ImageLoader Matches snapshot of generic props 1`] = `
+<div
+  className="oh-hey"
+>
+  me-drinking-pina-colada.jpg
+</div>
+`;

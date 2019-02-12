@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BackgroundImage Matches snapshot of generic props 1`] = `
+<div
+  className="MaWrapperClass sc-bwzfXH MWGHc"
+  height="300px"
+  width="300px"
+>
+  <div
+    style={
+      Object {
+        "height": "300px",
+        "width": "300px",
+      }
+    }
+  />
+  <div
+    className="sc-bdVaJa iVGwIn"
+  />
+</div>
+`;

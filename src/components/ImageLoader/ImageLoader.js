@@ -9,8 +9,6 @@ export class ImageLoader extends React.Component {
   static propTypes = {
     src: PropTypes.string.isRequired,
     transitionTime: PropTypes.string,
-    renderLoader: PropTypes.func,
-    disablePlaceholder: PropTypes.bool,
     lazyLoad: PropTypes.bool,
     children: PropTypes.oneOfType([
       PropTypes.arrayOf(PropTypes.node),
@@ -36,20 +34,14 @@ export class ImageLoader extends React.Component {
     if (prevProps.src !== this.props.src) {
       if (!this.props.lazyLoad) {
         this.preloadImage();
+      } else {
+        this.setState({ visibilitySensorIsActive: true });
       }
     }
   }
 
   render() {
-    const {
-      src,
-      transitionTime,
-      renderLoader,
-      disablePlaceholder,
-      children,
-      lazyLoad,
-    } = this.props;
-
+    const { src, children, lazyLoad } = this.props;
     const {
       hasLoaded,
       hasFailed,
@@ -67,9 +59,6 @@ export class ImageLoader extends React.Component {
       shouldShowLoader,
       hasFailed,
       src,
-      transitionTime,
-      disablePlaceholder,
-      renderLoader,
     });
 
     /*
@@ -79,6 +68,7 @@ export class ImageLoader extends React.Component {
       <VisibilitySensor
         active={visibilitySensorIsActive}
         onChange={this.handleVisibilityChange}
+        partialVisibility
       >
         {childElement}
       </VisibilitySensor>
@@ -115,14 +105,13 @@ export class ImageLoader extends React.Component {
     });
   };
 
-  handleImageFailed = () => {
+  handleImageLoaderFailed = () => {
     this.setState({ hasFailed: true });
   };
 
   handleVisibilityChange = isVisible => {
     if (!isVisible) return;
     this.setState({ visibilitySensorIsActive: false });
-    console.log("WILL PRELOAD");
     this.preloadImage();
   };
 }

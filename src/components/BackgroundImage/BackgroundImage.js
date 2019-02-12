@@ -4,6 +4,7 @@ import ImageLoader from "../ImageLoader";
 import { Wrapper } from "./elements/Wrapper";
 import PropTypes from "prop-types";
 import defaults from "../../defaults";
+import { getAspectRatioPercentage } from "../../util";
 
 export const BackgroundImage = ({
   src,
@@ -11,30 +12,17 @@ export const BackgroundImage = ({
   height,
   transitionTime,
   renderLoader,
-  disablePlaceholder,
+  disableLoader,
   useChild,
   children,
   element,
   lazyLoad,
   wrapperClassName,
+  isResponsive,
   ...props
 }) => (
-  <ImageLoader
-    src={src}
-    transitionTime={transitionTime}
-    renderLoader={renderLoader}
-    disablePlaceholder={disablePlaceholder}
-    lazyLoad={lazyLoad}
-  >
-    {({
-      hasLoaded,
-      shouldShowLoader,
-      hasFailed,
-      src,
-      transitionTime,
-      disablePlaceholder,
-      renderLoader,
-    }) => {
+  <ImageLoader src={src} transitionTime={transitionTime} lazyLoad={lazyLoad}>
+    {({ hasLoaded, shouldShowLoader, hasFailed, src }) => {
       const backgroundImageStyle = { backgroundImage: `url("${src}")` };
       let style;
       let childElement;
@@ -56,8 +44,12 @@ export const BackgroundImage = ({
          * the element prop, apply the styles and include the current children
          */
         style = props.style ? { ...props.style } : {};
-        style.width = width;
-        style.height = height;
+        style.width = !isResponsive ? width : "100%";
+        style.height = !isResponsive ? height : "auto";
+        if (isResponsive) {
+          style.paddingTop = getAspectRatioPercentage(width, height);
+        }
+
         hasLoaded ? (style = { ...style, ...backgroundImageStyle }) : style;
         childElement = React.createElement(
           element,
@@ -67,9 +59,14 @@ export const BackgroundImage = ({
       }
 
       return (
-        <Wrapper width={width} height={height} className={wrapperClassName}>
+        <Wrapper
+          width={width}
+          height={height}
+          isResponsive={isResponsive}
+          className={wrapperClassName}
+        >
           {childElement}
-          {shouldShowLoader && !disablePlaceholder && (
+          {shouldShowLoader && !disableLoader && (
             <Fragment>
               {renderLoader ? (
                 renderLoader({ hasLoaded, hasFailed })
@@ -94,7 +91,7 @@ BackgroundImage.propTypes = {
   height: PropTypes.string,
   transitionTime: PropTypes.string,
   renderLoader: PropTypes.func,
-  disablePlaceholder: PropTypes.bool,
+  disableLoader: PropTypes.bool,
   useChild: PropTypes.bool,
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
@@ -103,6 +100,8 @@ BackgroundImage.propTypes = {
   element: PropTypes.string,
   style: PropTypes.object,
   wrapperClassName: PropTypes.string,
+  lazyLoad: PropTypes.bool,
+  isResponsive: PropTypes.bool,
 };
 
 BackgroundImage.defaultProps = {
