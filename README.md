@@ -138,15 +138,15 @@ class Example extends Component {
 All initial prop values are undefined unless otherwise specified.
 | Prop | Description |
 | ------------- | ------------- |
-`src` <sub><sup>string</sup></sub> | URI to the image, can be an imported local image or a remote image.|
-`width` <sub><sup>string</sup></sub> | Width of the image in string format. This can be any valid CSS value such as "20px", "20%", "20em" etc. When using `isResponsive` width must be in px format.|
-`height` <sub><sup>string</sup></sub> | Height of the image in string format. This can be any valid CSS value such as "20px", "20%", "20em" etc. When using `isResponsive` width must be in px format.|
-`transitionTime` <sub><sup>string \| default 0.3s</sup></sub> | Time used for the fade transition. This can be any valid CSS timing value such as "0.3s", "300ms", "3s". This is also used for unmounting the loader component, so once the image has loaded, `<Image/>` will wait for 0.3s (or `transitionTime`) before unmounting the loader.|
-`renderLoader` <sub><sup>func</sup></sub> | A function that renders a custom loader. The function will call `renderLoader` with an object containing the keys `hasLoaded` and `hasFailed`. See Custom loaders.|
-`disableLoader` <sub><sup>bool</sup></sub> | Stop loader element from being shown while the image is loading. Note this will override the behaviour of `renderLoader`.|
-`wrapperClassName` <sub><sup>string</sup></sub> | The `className` to apply to the wrapper element.|
-`lazyLoad` <sub><sup>bool \| default false</sup></sub> | Enable or disable lazy loading. See lazy loading.|
-`isResponsive` <sub><sup>bool \| default false</sup></sub> | Enable or disable responsiveness. See Responsive.|
+|`src` <sub><sup>string</sup></sub> | URI to the image, can be an imported local image or a remote image. |
+|`width` <sub><sup>string</sup></sub> | Width of the image in string format. This can be any valid CSS value such as "20px", "20%", "20em" etc. When using `isResponsive` width must be in px format. |
+|`height` <sub><sup>string</sup></sub> | Height of the image in string format. This can be any valid CSS value such as "20px", "20%", "20em" etc. When using `isResponsive` width must be in px format. |
+|`transitionTime` <sub><sup>string \| default 0.3s</sup></sub> | Time used for the fade transition. This can be any valid CSS timing value such as "0.3s", "300ms", "3s". This is also used for unmounting the loader component, so once the image has loaded, `<Image/>` will wait for 0.3s (or `transitionTime`) before unmounting the loader. |
+|`renderLoader` <sub><sup>func</sup></sub> | A function that renders a custom loader. The function will call `renderLoader` with an object containing the keys `hasLoaded` and `hasFailed`. See Custom loaders. |
+|`disableLoader` <sub><sup>bool</sup></sub> | Stop loader element from being shown while the image is loading. Note this will override the behaviour of `renderLoader`. |
+|`wrapperClassName` <sub><sup>string</sup></sub> | The `className` to apply to the wrapper element. |
+|`lazyLoad` <sub><sup>bool \| default false</sup></sub> | Enable or disable lazy loading. See lazy loading. |
+|`isResponsive` <sub><sup>bool \| default false</sup></sub> | Enable or disable responsiveness. See Responsive. |
 
 ## License
 
