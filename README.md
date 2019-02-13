@@ -136,10 +136,6 @@ class Example extends Component {
 #### `<Image />` Props
 
 All initial prop values are undefined unless otherwise specified.
-| Prop | Description |
-| ------------- | ------------- |
-|`src` <sub><sup>string</sup></sub> | URI to the image, can be an imported local image or a remote image. |
-|`width` <sub><sup>string</sup></sub> | Width of the image in string format. This can be any valid CSS value such as "20px", "20%", "20em" etc. When using `isResponsive` width must be in px format. |
 
 | Prop                                                          | Description                                                                                                                                                                                                                                                                     |
 | ------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
