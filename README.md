@@ -148,10 +148,10 @@ All initial prop values are undefined unless otherwise specified.
 |`lazyLoad` <sub><sup>bool \| default false</sup></sub> | Enable or disable lazy loading. See lazy loading. |
 |`isResponsive` <sub><sup>bool \| default false</sup></sub> | Enable or disable responsiveness. See Responsive. |
 
-| First Header | Second Header |
-| ------------ | ------------- |
-| Content Cell | Content Cell  |
-| Content Cell | Content Cell  |
+| Prop                               | Description                                                         |
+| ---------------------------------- | ------------------------------------------------------------------- |
+| `src` <sub><sup>string</sup></sub> | URI to the image, can be an imported local image or a remote image. |
+| Content Cell                       | Content Cell                                                        |
 
 ## License
 
