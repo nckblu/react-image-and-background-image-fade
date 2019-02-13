@@ -1,5 +1,5 @@
 import React from "react";
-import { BackgroundImage } from "../components/BackgroundImage/BackgroundImage";
+import BackgroundImage from "../components/BackgroundImage";
 import renderer from "react-test-renderer";
 import { simplePreloadMock } from "./__mocks__/ImageLoader";
 import { mount } from "enzyme";
