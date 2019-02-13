@@ -148,6 +148,11 @@ All initial prop values are undefined unless otherwise specified.
 |`lazyLoad` <sub><sup>bool \| default false</sup></sub> | Enable or disable lazy loading. See lazy loading. |
 |`isResponsive` <sub><sup>bool \| default false</sup></sub> | Enable or disable responsiveness. See Responsive. |
 
+| First Header | Second Header |
+| ------------ | ------------- |
+| Content Cell | Content Cell  |
+| Content Cell | Content Cell  |
+
 ## License
 
 MIT © [nckblu](https://github.com/nckblu)
