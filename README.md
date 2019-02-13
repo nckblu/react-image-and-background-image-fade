@@ -32,7 +32,6 @@ React Image and Background Image Fade comprises of 3 main components:
 - `<BackgroundImage />` For preloading and fading in background images of any element.
 - `<ImageLoader />` For creating your own implementation for image loading.
 
-<br>
 ### `<Image />`
 
 #### Basic Usage
