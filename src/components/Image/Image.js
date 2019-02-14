@@ -5,7 +5,7 @@ import ImageLoader from "../ImageLoader";
 import Wrapper from "./elements/Wrapper";
 import Img from "./elements/Img";
 import defaults from "../../defaults";
-import BackgroundImage from "../Backgroundimage";
+import BackgroundImage from "../BackgroundImage";
 
 export const Image = ({
   src,
