@@ -1,11 +1,4 @@
 language: node_js
 node_js:
-  - "stable"
-cache:
-  directories:
-    - node_modules
-install:
-  - yarn install
-script:
-  - yarn test:ci
-  - yarn build
+  - 9
+  - 8
