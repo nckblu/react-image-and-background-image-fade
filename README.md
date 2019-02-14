@@ -1,4 +1,4 @@
-[![NPM](https://img.shields.io/npm/v/react-image-and-background-image-fade.svg)](https://www.npmjs.com/package/react-image-and-background-image-fade) [![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/nckblu/a2b/LICENSE) [![style: styled-components](https://img.shields.io/badge/style-%F0%9F%92%85%20styled--components-orange.svg?colorB=daa357&colorA=db748e)](https://github.com/styled-components/styled-components)
+[![NPM](https://img.shields.io/npm/v/react-image-and-background-image-fade.svg)](https://www.npmjs.com/package/react-image-and-background-image-fade) [![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/nckblu/react-image-and-background-image-fade/LICENSE) [![style: styled-components](https://img.shields.io/badge/style-%F0%9F%92%85%20styled--components-orange.svg?colorB=daa357&colorA=db748e)](https://github.com/styled-components/styled-components)
 
 # React Image and Background Image Fade
 
