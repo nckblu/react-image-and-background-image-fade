@@ -1,4 +1,4 @@
-[![NPM](https://img.shields.io/npm/v/react-image-and-background-image-fade.svg)](https://www.npmjs.com/package/react-image-and-background-image-fade) [![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/nckblu/a2b/LICENSE)
+[![NPM](https://img.shields.io/npm/v/react-image-and-background-image-fade.svg)](https://www.npmjs.com/package/react-image-and-background-image-fade) [![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/nckblu/a2b/LICENSE) [![style: styled-components](https://img.shields.io/badge/style-%F0%9F%92%85%20styled--components-orange.svg?colorB=daa357&colorA=db748e)](https://github.com/styled-components/styled-components)
 
 # React Image and Background Image Fade
 
@@ -24,7 +24,32 @@ or
 yarn add react-image-and-background-image-fade
 ```
 
-## Components
+## Table of Contents
+
+- [Components](#components)
+  - Image
+    - Basic usage
+    - Responsive
+    - Lazy Loading
+    - Custom Loaders
+    - Props
+  - Background Image
+    - Basic usage
+    - Responsive
+    - Lazy Loading
+    - Custom Loaders
+    - useChild
+    - element
+    - Props
+  - ImageLoader
+    - Overview
+    - Props
+- Dependencies
+- Demo + Examples
+- Roadmap
+- License
+
+## <a id="components">Components</a>
 
 React Image and Background Image Fade comprises of 3 main components:
 
@@ -34,7 +59,7 @@ React Image and Background Image Fade comprises of 3 main components:
 
 ### `Image`
 
-#### Basic Usage
+#### Basic usage
 
 Note here that all unknown props like `alt` and `title` are passed through to the resulting `img` element.
 
@@ -385,6 +410,18 @@ React Image and Background Image is not a depency-free component. It aims to pro
 - [ImagePreloader](https://github.com/smelukov/ImagePreloader) - Under the hood for the actual preloading of the image
 - [React Visibility Sensor](https://github.com/joshwnj/react-visibility-sensor) - Lazy load functionality
 - [Styled Components](https://github.com/styled-components/styled-components) - Dynamic styling under the hood
+
+## Contributions
+
+React Image and Background Image is very young at the moment and thoroughly encourages pull requests and issues.
+
+## Demo + Examples
+
+Coming soon... very soon.
+
+## Roadmap
+
+- `srcset` support
 
 ## License
 
