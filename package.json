@@ -36,7 +36,10 @@
   "peerDependencies": {
     "prop-types": "^15.5.4",
     "react": "^15.0.0 || ^16.0.0",
-    "react-dom": "^15.0.0 || ^16.0.0"
+    "react-dom": "^15.0.0 || ^16.0.0",
+    "image-preloader": "^1.1.1",
+    "react-visibility-sensor": "^5.0.2",
+    "styled-components": "^4.1.3"
   },
   "devDependencies": {
     "@svgr/rollup": "^2.4.1",
@@ -74,11 +77,5 @@
   },
   "files": [
     "dist"
-  ],
-  "dependencies": {
-    "image-preloader": "^1.1.1",
-    "prop-types": "^15.6.2",
-    "react-visibility-sensor": "^5.0.2",
-    "styled-components": "^4.1.3"
-  }
+  ]
 }
