@@ -5,6 +5,7 @@
   "author": "nckblu",
   "license": "MIT",
   "repository": "nckblu/react-image-and-background-image-fade",
+  "homepage": "https://react-image-and-background-image-fade.com/",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
   "jsnext:main": "dist/index.es.js",
