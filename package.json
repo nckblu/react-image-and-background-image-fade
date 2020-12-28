@@ -1,6 +1,6 @@
 {
   "name": "react-image-and-background-image-fade",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Fade in images and background images easily!",
   "author": "nckblu",
   "license": "MIT",
@@ -76,7 +76,9 @@
     "rollup-plugin-postcss": "^1.6.2",
     "rollup-plugin-url": "^1.4.0"
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "dependencies": {
     "image-preloader": "^1.1.1",
     "prop-types": "^15.6.2",
