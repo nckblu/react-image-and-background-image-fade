@@ -2,7 +2,7 @@
 
 exports[`BackgroundImage Matches snapshot of generic props 1`] = `
 <div
-  className="MaWrapperClass sc-bwzfXH MWGHc"
+  className="sc-bwzfXH MWGHc MaWrapperClass"
   height="300px"
   width="300px"
 >

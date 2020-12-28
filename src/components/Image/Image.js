@@ -1,11 +1,11 @@
-import React, { Fragment } from "react";
-import PropTypes from "prop-types";
-import Loader from "../Loader";
-import ImageLoader from "../ImageLoader";
-import Wrapper from "./elements/Wrapper";
-import Img from "./elements/Img";
-import defaults from "../../defaults";
-import BackgroundImage from "../BackgroundImage";
+import React, { Fragment } from 'react'
+import PropTypes from 'prop-types'
+import Loader from '../Loader'
+import ImageLoader from '../ImageLoader'
+import Wrapper from './elements/Wrapper'
+import Img from './elements/Img'
+import defaults from '../../defaults'
+import BackgroundImage from '../BackgroundImage'
 
 export const Image = ({
   src,
@@ -55,10 +55,10 @@ export const Image = ({
               </Fragment>
             )}
           </Wrapper>
-        );
+        )
       }}
     </ImageLoader>
-  );
+  )
 
 Image.propTypes = {
   src: PropTypes.string.isRequired,
@@ -69,11 +69,11 @@ Image.propTypes = {
   disableLoader: PropTypes.bool,
   wrapperClassName: PropTypes.string,
   lazyLoad: PropTypes.bool,
-  isResponsive: PropTypes.bool,
-};
+  isResponsive: PropTypes.bool
+}
 
 Image.defaultProps = {
-  transitionTime: defaults.transitionTime,
-};
+  transitionTime: defaults.transitionTime
+}
 
-export default Image;
+export default Image

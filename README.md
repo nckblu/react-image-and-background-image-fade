@@ -4,6 +4,10 @@
 
 > Fade in images AND background images easily in React 😉!
 
+## Demo and Docs are live!
+
+[react-image-and-background-image-fade.com](https://react-image-and-background-image-fade.com/)
+
 ## Features
 
 - Fade in images and background images 🏞
@@ -26,28 +30,34 @@ yarn add react-image-and-background-image-fade
 
 ## Table of Contents
 
-- [Components](#components)
-  - [Image](#image)
-    - [Basic usage](#image--basicUsage)
-    - [Responsive](#image--responsive)
-    - [Lazy Loading](#image--lazyLoading)
-    - [Custom Loaders](#image--customLoaders)
-    - [Props](#image--props)
-  - [Background Image](#backgroundImage)
-    - [Basic usage](#backgroundImage--basicUsage)
-    - [Responsive](#backgroundImage--responsive)
-    - [Lazy Loading](#backgroundImage--lazyLoading)
-    - [Custom Loaders](#backgroundImage--customLoaders)
-    - [useChild](#backgroundImage--useChild)
-    - [element](#backgroundImage--element)
-    - [Props](#backgroundImage--props)
-  - [ImageLoader](#imageLoader)
-    - [Overview](#imageLoader--overview)
-    - [Props](#imageLoader--props)
-- [Dependencies](#dependencies)
-- [Demo + Examples](#demo)
-- [Roadmap](#roadmap)
-- [License](#license)
+- [React Image and Background Image Fade](#react-image-and-background-image-fade)
+  - [Demo and Docs are live!](#demo-and-docs-are-live)
+  - [Features](#features)
+  - [Install](#install)
+  - [Table of Contents](#table-of-contents)
+  - [<a id="components"></a>Components](#components)
+    - [<a id="image"></a>`Image`](#image)
+      - [<a id="image--basicUsage"></a>Basic usage](#basic-usage)
+      - [<a id="image--responsive"></a>Responsive](#responsive)
+      - [<a id="image--lazyLoading"></a> Lazy loading](#-lazy-loading)
+      - [<a id="image--customLoaders"></a> Custom loaders](#-custom-loaders)
+      - [<a id="image--props"></a>`Image` Props](#image-props)
+    - [<a id="backgroundImage"></a>`BackgroundImage`](#backgroundimage)
+      - [<a id="backgroundImage--basicUsage"></a>Basic Usage](#basic-usage-1)
+      - [<a id="backgroundImage--responsive"></a>Responsive](#responsive-1)
+      - [<a id="backgroundImage--lazyLoading"></a>Lazy loading](#lazy-loading)
+      - [<a id="backgroundImage--customLoaders"></a>Custom loaders](#custom-loaders)
+      - [<a id="backgroundImage--useChild"></a>useChild](#usechild)
+      - [<a id="backgroundImage--element"></a>element](#element)
+      - [<a id="backgroundImage--props"></a>`BackgroundImage` Props](#backgroundimage-props)
+    - [<a id="imageLoader"></a>`ImageLoader`](#imageloader)
+      - [<a id="imageLoader--overview"></a>Overview](#overview)
+      - [<a id="imageLoader--props"></a> `ImageLoader` Props](#-imageloader-props)
+  - [<a id="dependencies"></a> Dependencies](#-dependencies)
+  - [<a id="contributions"></a> Contributions](#-contributions)
+  - [<a id="demo"></a> Demo + Examples](#-demo--examples)
+  - [<a id="roadmap"></a>Roadmap](#roadmap)
+  - [<a id="license"></a> License](#-license)
 
 ## <a id="components"></a>Components
 
@@ -64,19 +74,19 @@ React Image and Background Image Fade comprises of 3 main components:
 Note here that all unknown props like `alt` and `title` are passed through to the resulting `img` element.
 
 ```jsx
-import { Image } from "react-image-and-background-image-fade";
+import { Image } from 'react-image-and-background-image-fade'
 
 class Example extends Component {
-  render() {
+  render () {
     return (
       <Image
-        src="https://example.com/neon_cat.jpg"
-        width="300px"
-        height="300px"
-        alt="flying cat"
-        title="Neon cat"
+        src='https://example.com/neon_cat.jpg'
+        width='300px'
+        height='300px'
+        alt='flying cat'
+        title='Neon cat'
       />
-    );
+    )
   }
 }
 ```
@@ -86,18 +96,18 @@ class Example extends Component {
 When using the `isResponsive` you must ensure that both the width and height are in pixel format, this is because Image calculates the aspect ratio based on the image's width and height. The resulting element will have a width set to 100% and will fill the parent container.
 
 ```jsx
-import { Image } from "react-image-and-background-image-fade";
+import { Image } from 'react-image-and-background-image-fade'
 
 class Example extends Component {
-  render() {
+  render () {
     return (
       <Image
-        src="https://example.com/neon_cat.jpg"
-        width="800px"
-        height="400px"
+        src='https://example.com/neon_cat.jpg'
+        width='800px'
+        height='400px'
         isResponsive
       />
-    );
+    )
   }
 }
 ```
@@ -107,18 +117,18 @@ class Example extends Component {
 Internally React Image and Background Image Fade makes use of [Visibility Sensor](https://github.com/joshwnj/react-visibility-sensor). When using `lazyLoad` the image will begin loading as soon as the image is partially visible in the viewport.
 
 ```jsx
-import { Image } from "react-image-and-background-image-fade";
+import { Image } from 'react-image-and-background-image-fade'
 
 class Example extends Component {
-  render() {
+  render () {
     return (
       <Image
-        src="me_drinking_pina_colada.tiff"
-        width="800px"
-        height="400px"
+        src='me_drinking_pina_colada.tiff'
+        width='800px'
+        height='400px'
         lazyLoad
       />
-    );
+    )
   }
 }
 ```
@@ -132,17 +142,17 @@ React Image and Background Image Fade shows a default loader when none is provid
 `hasFailed` is so that you an show a custom error in the event of an image load fail.
 
 ```jsx
-import { Image } from "react-image-and-background-image-fade";
+import { Image } from 'react-image-and-background-image-fade'
 
 class Example extends Component {
-  render() {
+  render () {
     return (
       <Image
-        src="me_drinking_pina_colada.tiff"
-        width="20%"
-        height="10%"
+        src='me_drinking_pina_colada.tiff'
+        width='20%'
+        height='10%'
         renderLoader={({ hasLoaded, hasFailed }) => (
-          <div className="MyAwesomeLoader">
+          <div className='MyAwesomeLoader'>
             I'm loading here!
             {hasFailed && <span>But I have failed</span>}
             {hasLoaded && (
@@ -153,7 +163,7 @@ class Example extends Component {
           </div>
         )}
       />
-    );
+    )
   }
 }
 ```
@@ -182,17 +192,17 @@ All initial prop values are undefined unless otherwise specified. `src`, `width`
 Note here that all unknown props like `alt` and `title` are passed through to the resulting `img` element.
 
 ```jsx
-import { BackgroundImage } from "react-image-and-background-image-fade";
+import { BackgroundImage } from 'react-image-and-background-image-fade'
 
 class Example extends Component {
-  render() {
+  render () {
     return (
       <BackgroundImage
-        src="me_drinking_prosecco.jpg"
-        width="300px"
-        height="300px"
+        src='me_drinking_prosecco.jpg'
+        width='300px'
+        height='300px'
       />
-    );
+    )
   }
 }
 ```
@@ -202,18 +212,18 @@ class Example extends Component {
 When using the `isResponsive` you must ensure that both the width and height are in pixel format, this is because BackgroundImage calculates the aspect ratio based on the image's width and height. The resulting element will have a width set to 100% and will fill the parent container.
 
 ```jsx
-import { BackgroundImage } from "react-image-and-background-image-fade";
+import { BackgroundImage } from 'react-image-and-background-image-fade'
 
 class BackgroundImage extends Component {
-  render() {
+  render () {
     return (
       <BackgroundImage
-        src="https://example.com/neon_cat.jpg"
-        width="800px"
-        height="400px"
+        src='https://example.com/neon_cat.jpg'
+        width='800px'
+        height='400px'
         isResponsive
       />
-    );
+    )
   }
 }
 ```
@@ -223,18 +233,18 @@ class BackgroundImage extends Component {
 Internally React Image and Background Image Fade makes use of [Visibility Sensor](https://github.com/joshwnj/react-visibility-sensor). When using `lazyLoad` the image will begin loading as soon as the element is partially visible in the viewport.
 
 ```jsx
-import { BackgroundImage } from "react-image-and-background-image-fade";
+import { BackgroundImage } from 'react-image-and-background-image-fade'
 
 class Example extends Component {
-  render() {
+  render () {
     return (
       <BackgroundImage
-        src="me_drinking_pina_colada.tiff"
-        width="800px"
-        height="400px"
+        src='me_drinking_pina_colada.tiff'
+        width='800px'
+        height='400px'
         lazyLoad
       />
-    );
+    )
   }
 }
 ```
@@ -248,17 +258,17 @@ React Image and Background Image Fade shows a default loader when none is provid
 `hasFailed` is so that you an show a custom error in the event of an image load fail.
 
 ```jsx
-import { BackgroundImage } from "react-image-and-background-image-fade";
+import { BackgroundImage } from 'react-image-and-background-image-fade'
 
 class Example extends Component {
-  render() {
+  render () {
     return (
       <BackgroundImage
-        src="me_drinking_pina_colada.tiff"
-        width="20%"
-        height="10%"
+        src='me_drinking_pina_colada.tiff'
+        width='20%'
+        height='10%'
         renderLoader={({ hasLoaded, hasFailed }) => (
-          <div className="MyAwesomeLoader">
+          <div className='MyAwesomeLoader'>
             I'm loading here!
             {hasFailed && <span>But I have failed</span>}
             {hasLoaded && (
@@ -269,7 +279,7 @@ class Example extends Component {
           </div>
         )}
       />
-    );
+    )
   }
 }
 ```
@@ -279,24 +289,24 @@ class Example extends Component {
 By default `BackgroundImage` will create its own element to apply the background to however if you would prefer to use your own element you can simply include it within `BackgroundImage` as a child and set `useChild` to `true`.
 
 ```jsx
-import { BackgroundImage } from "react-image-and-background-image-fade";
+import { BackgroundImage } from 'react-image-and-background-image-fade'
 
 class Example extends Component {
-  render() {
+  render () {
     return (
       <BackgroundImage
         useChild
-        width="200px"
-        height="200px"
-        src="me_drinking_guinness.gif"
+        width='200px'
+        height='200px'
+        src='me_drinking_guinness.gif'
       >
         <div
-          style={{ width: "500px", height: "500px", backgroundSize: "cover" }}
+          style={{ width: '500px', height: '500px', backgroundSize: 'cover' }}
         >
           I'm in a child wrapper enjoying that sweet background.
         </div>
       </BackgroundImage>
-    );
+    )
   }
 }
 ```
@@ -306,20 +316,20 @@ class Example extends Component {
 `BackgroundImage` creates a wrapper `div` element and the element that the background is attached to is by default a `div` this can be changed to any other valid html element. If you would like to apply the background image to a custom component, see `useChild`.
 
 ```jsx
-import { BackgroundImage } from "react-image-and-background-image-fade";
+import { BackgroundImage } from 'react-image-and-background-image-fade'
 
 class Example extends Component {
-  render() {
+  render () {
     return (
       <BackgroundImage
-        element="p"
-        width="200px"
-        height="200px"
-        src="me_drinking_guinness.gif"
+        element='p'
+        width='200px'
+        height='200px'
+        src='me_drinking_guinness.gif'
       >
         Look at me i'm a paragraph.
       </BackgroundImage>
-    );
+    )
   }
 }
 ```
@@ -356,29 +366,29 @@ Both `Image` and `BackgroundImage` make use of `ImageLoader` internally. It can 
 - `src` (string) - The source of the image (pass-through)
 
 ```jsx
-import { ImageLoader } from "react-image-and-background-image-fade";
+import { ImageLoader } from 'react-image-and-background-image-fade'
 
 class AwesomeOLoader extends Component {
-  render() {
+  render () {
     return (
-      <ImageLoader src="awesome-o.gif" transitionTime="0.3s">
+      <ImageLoader src='awesome-o.gif' transitionTime='0.3s'>
         {({ hasLoaded, shouldShowLoader, hasFailed, src }) => (
-          <div className="AwesomeOLoader">
+          <div className='AwesomeOLoader'>
             {shouldShowLoader && !hasFailed && (
-              <div className="AwesomeoLoader__loading">
+              <div className='AwesomeoLoader__loading'>
                 Awesome-o is loading ...
               </div>
             )}
 
             {hasFailed && (
-              <div className="AwesomeoLoader__failed">
+              <div className='AwesomeoLoader__failed'>
                 Awesome-o has failed :(
               </div>
             )}
 
             {hasLoaded && (
               <div
-                className="AwesomeoLoader__failed"
+                className='AwesomeoLoader__failed'
                 style={{ backgroundImage: `url(${src})` }}
               >
                 Awesome-o has Loaded!! :(
@@ -387,7 +397,7 @@ class AwesomeOLoader extends Component {
           </div>
         )}
       </ImageLoader>
-    );
+    )
   }
 }
 ```
@@ -417,7 +427,7 @@ React Image and Background Image is very young at the moment and thoroughly enco
 
 ## <a id="demo"></a> Demo + Examples
 
-Coming soon... very soon.
+[Click here to go to the website](https://react-image-and-background-image-fade.com/)
 
 ## <a id="roadmap"></a>Roadmap
 
