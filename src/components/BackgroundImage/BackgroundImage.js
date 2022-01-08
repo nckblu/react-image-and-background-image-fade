@@ -19,6 +19,7 @@ export const BackgroundImage = ({
   lazyLoad,
   wrapperClassName,
   isResponsive,
+  wrapperRef,
   ...props
 }) => (
   <ImageLoader src={src} transitionTime={transitionTime} lazyLoad={lazyLoad}>
@@ -64,6 +65,7 @@ export const BackgroundImage = ({
           height={height}
           isResponsive={isResponsive}
           className={wrapperClassName}
+          ref={wrapperRef}
         >
           {childElement}
           {shouldShowLoader && !disableLoader && (
@@ -102,6 +104,7 @@ BackgroundImage.propTypes = {
   wrapperClassName: PropTypes.string,
   lazyLoad: PropTypes.bool,
   isResponsive: PropTypes.bool,
+  wrapperRef: PropTypes.string,
 };
 
 BackgroundImage.defaultProps = {

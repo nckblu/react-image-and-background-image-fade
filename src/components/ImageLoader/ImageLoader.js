@@ -25,6 +25,7 @@ export class ImageLoader extends React.Component {
   };
 
   componentDidMount() {
+    this._isMounted = true;
     if (!this.props.lazyLoad) {
       this.preloadImage();
     }
@@ -38,6 +39,10 @@ export class ImageLoader extends React.Component {
         this.setState({ visibilitySensorIsActive: true });
       }
     }
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
   }
 
   render() {
@@ -98,6 +103,7 @@ export class ImageLoader extends React.Component {
     const hideLoaderDelay = cssTimeToMs(transitionTime);
     this.setState({ hasLoaded: true }, () => {
       setTimeout(() => {
+        if (!this._isMounted) return;
         this.setState({
           shouldShowLoader: false,
         });

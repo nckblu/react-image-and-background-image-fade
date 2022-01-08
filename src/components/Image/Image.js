@@ -17,6 +17,7 @@ export const Image = ({
   wrapperClassName,
   isResponsive,
   lazyLoad,
+  wrapperRef,
   ...props
 }) =>
   /*
@@ -35,13 +36,14 @@ export const Image = ({
       wrapperClassName={wrapperClassName}
       lazyLoad={lazyLoad}
       isResponsive
+      wrapperRef={wrapperRef}
       {...props}
     />
   ) : (
     <ImageLoader src={src} transitionTime={transitionTime} lazyLoad={lazyLoad}>
       {({ hasLoaded, shouldShowLoader, hasFailed, src }) => {
         return (
-          <Wrapper width={width} height={height} className={wrapperClassName}>
+          <Wrapper width={width} height={height} className={wrapperClassName} ref={wrapperRef}>
             {hasLoaded && (
               <Img src={src} transitionTime={transitionTime} {...props} />
             )}
@@ -69,7 +71,8 @@ Image.propTypes = {
   disableLoader: PropTypes.bool,
   wrapperClassName: PropTypes.string,
   lazyLoad: PropTypes.bool,
-  isResponsive: PropTypes.bool
+  isResponsive: PropTypes.bool,
+  wrapperRef: PropTypes.string,
 }
 
 Image.defaultProps = {
