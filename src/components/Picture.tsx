@@ -32,10 +32,13 @@ export const Picture = forwardRef<HTMLImageElement, PictureProps>(function Pictu
     placeholder,
     blurDataURL,
     color,
+    skeleton,
     renderPlaceholder,
     renderError,
     containerClassName,
     containerStyle,
+    placeholderClassName,
+    placeholderStyle,
     imageClassName,
     imageStyle,
     className,
@@ -54,6 +57,7 @@ export const Picture = forwardRef<HTMLImageElement, PictureProps>(function Pictu
   const resolvedEasing = easing ?? config.easing
   const resolvedPlaceholder = placeholder === undefined ? config.placeholder ?? 'skeleton' : placeholder
   const resolvedColor = color ?? config.color
+  const resolvedSkeleton = skeleton ?? config.skeleton
   const resolvedRenderPlaceholder = renderPlaceholder ?? config.renderPlaceholder
   const resolvedRenderError = renderError ?? config.renderError
   const resolvedFadeType: FadeType = fadeType ?? config.fadeType ?? 'fade'
@@ -161,8 +165,11 @@ export const Picture = forwardRef<HTMLImageElement, PictureProps>(function Pictu
         placeholder={resolvedPlaceholder}
         blurDataURL={blurDataURL}
         color={resolvedColor}
+        skeleton={resolvedSkeleton}
         renderPlaceholder={resolvedRenderPlaceholder}
         renderError={resolvedRenderError}
+        placeholderClassName={placeholderClassName}
+        placeholderStyle={placeholderStyle}
         state={placeholderState}
       />
     </span>

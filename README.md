@@ -30,7 +30,7 @@ export function Avatar() {
       width={320}
       height={320}
       placeholder="blur"
-      blurDataURL="data:image/jpeg;base64,..."
+      fadeType="blur-in"
       lazy
     />
   )
@@ -47,8 +47,11 @@ export function Avatar() {
 - `<Picture>` for art direction and AVIF/WebP fallback sources.
 - `<ImageLoader>` render prop for fully custom loading UIs.
 - `ImageConfigProvider` for design-system defaults.
+- **8 fade types**: fade, blur-in, zoom-blur, soft-reveal, wipe, slide-up, scale, and curtain.
+- **8 curated easing presets**: Material, Apple, Cinematic, Dramatic, and more.
 - Responsive helpers for generating `srcSet` and `sizes`.
 - Native image attributes: `srcSet`, `sizes`, `loading`, `decoding`, `fetchPriority`, `crossOrigin`, and more.
+- Industry-leading skeleton shimmer with typed theme options and CSS variable customization.
 - SSR-friendly markup for image and picture usage.
 - No `styled-components`, `prop-types`, `image-preloader`, or visibility-sensor dependency.
 
@@ -79,9 +82,72 @@ Useful props:
 | `lazy` | `boolean \| LazyOptions` | `true` uses native lazy loading; an object enables IntersectionObserver gating. |
 | `placeholder` | `"skeleton" \| "blur" \| "color" \| "empty" \| ReactNode \| null` | Loading visual. |
 | `fade` | `boolean \| FadeOptions` | Enables/disables transition or customizes it. |
+| `skeleton` | `SkeletonOptions` | Fine-tunes the default shimmer without custom rendering. |
+| `fadeType` | `"fade" \| "blur-in" \| "zoom-blur" \| "soft-reveal" \| "wipe" \| "slide-up" \| "scale" \| "curtain"` | The reveal animation style. |
 | `fit`, `position` | CSS values | Maps to `object-fit` and `object-position`. |
 | `renderPlaceholder` | function | Fully custom placeholder. |
 | `renderError` | function | Fully custom error state. |
+
+## Fade Types
+
+Control how your images reveal themselves:
+
+```tsx
+<Image src="/photo.jpg" alt="Photo" fadeType="blur-in" duration={1200} />
+```
+
+| Type | Effect |
+| --- | --- |
+| `fade` | Standard opacity transition (default). |
+| `blur-in` | Image resolves from blur to sharp. When `placeholder="blur"` has no `blurDataURL`, the final image is used as the blurred preview. |
+| `zoom-blur` | A punchier blur reveal with a subtle zoom and saturation lift. |
+| `soft-reveal` | Rounded inset, blur, lift, and fade for editorial image surfaces. |
+| `wipe` | Horizontal clip-path reveal. |
+| `slide-up` | Rises into position with opacity. |
+| `scale` | Grows from 96% to full size with opacity. |
+| `curtain` | Clip-path reveal from bottom to top. |
+
+## Skeleton Shimmer
+
+The default skeleton is a layered shimmer rather than a flat grey slab: it has a soft base wash, highlight, angled sheen, and optional accent glow. Keep the default, set CSS variables, or pass a typed `skeleton` object per component or through `ImageConfigProvider`.
+
+```tsx
+<Image
+  src="/campaign.jpg"
+  alt="Campaign"
+  width={1200}
+  height={800}
+  placeholder="skeleton"
+  skeleton={{
+    baseColor: '#111318',
+    highlightColor: '#242936',
+    accentColor: 'rgb(255 61 129 / 38%)',
+    sheenColor: 'rgb(255 255 255 / 76%)',
+    speed: 1100,
+    angle: 118,
+    size: '62%',
+    radius: 18
+  }}
+/>
+```
+
+## Easing Presets
+
+Import curated easing curves instead of memorizing cubic-bezier values:
+
+```tsx
+import { Image, easings } from 'react-image-and-background-image-fade'
+
+<Image
+  src="/photo.jpg"
+  alt="Photo"
+  easing={easings.cinematic}
+  fadeType="blur-in"
+  duration={1200}
+/>
+```
+
+Available presets: `default`, `material`, `apple`, `emphasized`, `sharp`, `spring`, `cinematic`, `dramatic`.
 
 ## BackgroundImage
 
@@ -260,6 +326,23 @@ Transitions use CSS variables:
 .gallery-image {
   --ribif-duration: 450ms;
   --ribif-easing: cubic-bezier(0.2, 0, 0, 1);
+}
+```
+
+Skeleton shimmer variables:
+
+```css
+.my-skeleton {
+  --ribif-skeleton-bg: #111318;
+  --ribif-skeleton-highlight: #242936;
+  --ribif-skeleton-accent: rgb(255 61 129 / 38%);
+  --ribif-skeleton-sheen: rgb(255 255 255 / 76%);
+  --ribif-shimmer-color: rgb(255 255 255 / 46%);
+  --ribif-shimmer-speed: 1.1s;
+  --ribif-shimmer-angle: 118deg;
+  --ribif-shimmer-size: 62%;
+  --ribif-skeleton-radius: 18px;
+  --ribif-blur-amount: 20px;
 }
 ```
 

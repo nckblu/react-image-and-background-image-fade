@@ -10,7 +10,15 @@ export type ImageStatus = 'idle' | 'loading' | 'loaded' | 'error'
 
 export type PlaceholderKind = 'empty' | 'skeleton' | 'blur' | 'color'
 
-export type FadeType = 'fade' | 'blur-in' | 'slide-up' | 'scale' | 'curtain'
+export type FadeType =
+  | 'fade'
+  | 'blur-in'
+  | 'slide-up'
+  | 'scale'
+  | 'curtain'
+  | 'zoom-blur'
+  | 'soft-reveal'
+  | 'wipe'
 
 export type ImageFit = CSSProperties['objectFit']
 
@@ -35,6 +43,18 @@ export interface PlaceholderRenderState {
   hasFailed: boolean
 }
 
+export interface SkeletonOptions {
+  baseColor?: string
+  highlightColor?: string
+  accentColor?: string
+  sheenColor?: string
+  speed?: number | string
+  angle?: number | string
+  size?: number | string
+  radius?: number | string
+  opacity?: number | string
+}
+
 export interface UseImageOptions {
   src?: string
   srcSet?: string
@@ -45,6 +65,8 @@ export interface UseImageOptions {
   timeout?: number
   crossOrigin?: '' | 'anonymous' | 'use-credentials'
   referrerPolicy?: ImgHTMLAttributes<HTMLImageElement>['referrerPolicy']
+  /** Bypass the in-memory JS cache so the fade animation always replays on mount. */
+  skipCache?: boolean
 }
 
 export interface UseImageResult {
@@ -67,10 +89,13 @@ export interface SharedVisualProps {
   placeholder?: PlaceholderKind | ReactNode | null
   blurDataURL?: string
   color?: string
+  skeleton?: SkeletonOptions
   renderPlaceholder?: (state: PlaceholderRenderState) => ReactNode
   renderError?: (state: PlaceholderRenderState) => ReactNode
   containerClassName?: string
   containerStyle?: CSSProperties
+  placeholderClassName?: string
+  placeholderStyle?: CSSProperties
 }
 
 export interface ImageProps
@@ -99,6 +124,8 @@ export interface ImageProps
   decode?: boolean
   imageClassName?: string
   imageStyle?: CSSProperties
+  /** Bypass the in-memory JS cache so the fade animation always replays on mount. */
+  skipCache?: boolean
 }
 
 export interface BackgroundImageProps extends SharedVisualProps {
@@ -122,6 +149,8 @@ export interface BackgroundImageProps extends SharedVisualProps {
   timeout?: number
   crossOrigin?: '' | 'anonymous' | 'use-credentials'
   referrerPolicy?: ImgHTMLAttributes<HTMLImageElement>['referrerPolicy']
+  /** Bypass the in-memory JS cache so the fade animation always replays on mount. */
+  skipCache?: boolean
 }
 
 export interface PictureSource {

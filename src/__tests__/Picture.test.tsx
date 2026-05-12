@@ -30,3 +30,49 @@ it('updates load state when the fallback image loads', () => {
 
   expect(root).toHaveAttribute('data-status', 'loaded')
 })
+
+it('passes shared placeholder props through to the placeholder layer', () => {
+  render(
+    <Picture
+      src="/fallback.jpg"
+      alt="Landscape"
+      sources={[]}
+      placeholder="color"
+      color="#123456"
+      placeholderClassName="custom-placeholder"
+      placeholderStyle={{ borderRadius: 14 }}
+    />
+  )
+
+  const image = screen.getByRole('img', { name: 'Landscape' })
+  const placeholder = image.closest('.ribif-root')?.querySelector('.ribif-placeholder-color')
+
+  expect(placeholder).toHaveClass('custom-placeholder')
+  expect(placeholder).toHaveStyle({
+    backgroundColor: '#123456',
+    borderRadius: '14px'
+  })
+})
+
+it('uses blurDataURL for the blur placeholder when provided', () => {
+  render(
+    <Picture
+      src="/fallback.jpg"
+      alt="Landscape"
+      sources={[]}
+      placeholder="blur"
+      blurDataURL="data:image/png;base64,picture"
+      color="#ff3d81"
+    />
+  )
+
+  const image = screen.getByRole('img', { name: 'Landscape' })
+  const placeholder = image.closest('.ribif-root')?.querySelector('.ribif-placeholder-blur')
+
+  expect(placeholder).toHaveStyle({
+    backgroundImage: 'url("data:image/png;base64,picture")'
+  })
+  expect(placeholder).not.toHaveStyle({
+    backgroundColor: '#ff3d81'
+  })
+})

@@ -1,5 +1,12 @@
 import { createContext, useContext } from 'react'
-import type { FadeOptions, FadeType, LazyOptions, PlaceholderKind, PlaceholderRenderState } from './types'
+import type {
+  FadeOptions,
+  FadeType,
+  LazyOptions,
+  PlaceholderKind,
+  PlaceholderRenderState,
+  SkeletonOptions
+} from './types'
 import type { ReactNode } from 'react'
 
 export interface ImageConfig {
@@ -11,6 +18,7 @@ export interface ImageConfig {
   lazy?: boolean | LazyOptions
   placeholder?: PlaceholderKind | ReactNode | null
   color?: string
+  skeleton?: SkeletonOptions
   renderPlaceholder?: (state: PlaceholderRenderState) => ReactNode
   renderError?: (state: PlaceholderRenderState) => ReactNode
 }

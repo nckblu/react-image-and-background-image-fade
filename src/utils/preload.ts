@@ -27,6 +27,7 @@ export function getCachedImageError(options: UseImageOptions): Error | null {
 
 export function preloadImage(options: string | UseImageOptions): Promise<HTMLImageElement> {
   const imageOptions = typeof options === 'string' ? { src: options } : options
+  const { skipCache = false } = imageOptions
   const key = getImageCacheKey(imageOptions)
 
   if (!imageOptions.src) {
@@ -38,14 +39,16 @@ export function preloadImage(options: string | UseImageOptions): Promise<HTMLIma
     return Promise.resolve(undefined as unknown as HTMLImageElement)
   }
 
-  if (loadedImages.has(key)) {
+  if (!skipCache && loadedImages.has(key)) {
     const image = new window.Image()
     image.src = src
     return Promise.resolve(image)
   }
 
-  const pending = pendingImages.get(key)
-  if (pending) return pending
+  if (!skipCache) {
+    const pending = pendingImages.get(key)
+    if (pending) return pending
+  }
 
   const promise = new Promise<HTMLImageElement>((resolve, reject) => {
     const image = new window.Image()

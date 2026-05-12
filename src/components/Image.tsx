@@ -37,16 +37,20 @@ export const Image = forwardRef<HTMLImageElement, ImageProps>(function Image(
     placeholder,
     blurDataURL,
     color,
+    skeleton,
     renderPlaceholder,
     renderError,
     containerClassName,
     containerStyle,
+    placeholderClassName,
+    placeholderStyle,
     imageClassName,
     imageStyle,
     className,
     style,
     onLoad,
     onError,
+    skipCache,
     ...imgProps
   },
   forwardedRef
@@ -59,6 +63,7 @@ export const Image = forwardRef<HTMLImageElement, ImageProps>(function Image(
   const resolvedEasing = easing ?? config.easing
   const resolvedPlaceholder = placeholder === undefined ? config.placeholder ?? 'skeleton' : placeholder
   const resolvedColor = color ?? config.color
+  const resolvedSkeleton = skeleton ?? config.skeleton
   const resolvedRenderPlaceholder = renderPlaceholder ?? config.renderPlaceholder
   const resolvedRenderError = renderError ?? config.renderError
   const resolvedFadeType: FadeType = fadeType ?? config.fadeType ?? 'fade'
@@ -78,14 +83,14 @@ export const Image = forwardRef<HTMLImageElement, ImageProps>(function Image(
 
   useEffect(() => {
     const image = imageRef.current
-    if (!image || !shouldRenderSource) return
+    if (!image || !shouldRenderSource || skipCache) return
 
     if (image.complete && image.naturalWidth > 0) {
       setStatus('loaded')
     } else if (image.complete && image.naturalWidth === 0) {
       setStatus('error')
     }
-  }, [shouldRenderSource, src])
+  }, [shouldRenderSource, skipCache, src])
 
   const placeholderState: PlaceholderRenderState = useMemo(
     () => ({
@@ -165,8 +170,11 @@ export const Image = forwardRef<HTMLImageElement, ImageProps>(function Image(
         placeholder={resolvedPlaceholder}
         blurDataURL={blurDataURL}
         color={resolvedColor}
+        skeleton={resolvedSkeleton}
         renderPlaceholder={resolvedRenderPlaceholder}
         renderError={resolvedRenderError}
+        placeholderClassName={placeholderClassName}
+        placeholderStyle={placeholderStyle}
         state={placeholderState}
       />
     </span>

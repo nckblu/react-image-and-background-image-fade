@@ -53,3 +53,44 @@ it('supports asChild composition', async () => {
     backgroundImage: 'url("/hero.jpg")'
   })
 })
+
+it('passes shared placeholder props through to the placeholder layer', () => {
+  render(
+    <BackgroundImage
+      src="/hero.jpg"
+      placeholder="color"
+      color="#123456"
+      placeholderClassName="custom-placeholder"
+      placeholderStyle={{ borderRadius: 16 }}
+    >
+      <span>Hero</span>
+    </BackgroundImage>
+  )
+
+  const root = screen.getByText('Hero').closest('.ribif-root')
+  const placeholder = root?.querySelector('.ribif-placeholder-color')
+
+  expect(placeholder).toHaveClass('custom-placeholder')
+  expect(placeholder).toHaveStyle({
+    backgroundColor: '#123456',
+    borderRadius: '16px'
+  })
+})
+
+it('uses the image source as a blur placeholder without painting the color fallback', () => {
+  render(
+    <BackgroundImage src="/hero.jpg" placeholder="blur" color="#ff3d81">
+      <span>Hero</span>
+    </BackgroundImage>
+  )
+
+  const root = screen.getByText('Hero').closest('.ribif-root')
+  const placeholder = root?.querySelector('.ribif-placeholder-blur')
+
+  expect(placeholder).toHaveStyle({
+    backgroundImage: 'url("/hero.jpg")'
+  })
+  expect(placeholder).not.toHaveStyle({
+    backgroundColor: '#ff3d81'
+  })
+})

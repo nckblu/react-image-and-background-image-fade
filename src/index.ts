@@ -33,6 +33,7 @@ export type {
   PictureSource,
   PlaceholderKind,
   PlaceholderRenderState,
+  SkeletonOptions,
   UseImageOptions,
   UseImageResult
 } from './types'

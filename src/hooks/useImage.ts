@@ -48,7 +48,8 @@ export function useImage(options: UseImageOptions): UseImageResult {
     retry = 0,
     timeout,
     crossOrigin,
-    referrerPolicy
+    referrerPolicy,
+    skipCache = false
   } = options
 
   const cacheKey = useMemo(
@@ -57,22 +58,24 @@ export function useImage(options: UseImageOptions): UseImageResult {
   )
 
   const [state, dispatch] = useReducer(reducer, undefined, (): State => {
-    const cachedStatus = getCachedImageStatus({ src, srcSet, sizes, crossOrigin, referrerPolicy })
-
     if (!enabled || !src) {
       return { status: 'idle', error: null, image: null, reloadKey: 0 }
     }
 
-    if (cachedStatus === 'loaded') {
-      return { status: 'loaded', error: null, image: null, reloadKey: 0 }
-    }
+    if (!skipCache) {
+      const cachedStatus = getCachedImageStatus({ src, srcSet, sizes, crossOrigin, referrerPolicy })
 
-    if (cachedStatus === 'error') {
-      return {
-        status: 'error',
-        error: getCachedImageError({ src, srcSet, sizes, crossOrigin, referrerPolicy }),
-        image: null,
-        reloadKey: 0
+      if (cachedStatus === 'loaded') {
+        return { status: 'loaded', error: null, image: null, reloadKey: 0 }
+      }
+
+      if (cachedStatus === 'error') {
+        return {
+          status: 'error',
+          error: getCachedImageError({ src, srcSet, sizes, crossOrigin, referrerPolicy }),
+          image: null,
+          reloadKey: 0
+        }
       }
     }
 
@@ -88,11 +91,13 @@ export function useImage(options: UseImageOptions): UseImageResult {
       return
     }
 
-    const cachedStatus = getCachedImageStatus({ src, srcSet, sizes, crossOrigin, referrerPolicy })
+    if (!skipCache) {
+      const cachedStatus = getCachedImageStatus({ src, srcSet, sizes, crossOrigin, referrerPolicy })
 
-    if (cachedStatus === 'loaded') {
-      dispatch({ type: 'loaded', image: null })
-      return
+      if (cachedStatus === 'loaded') {
+        dispatch({ type: 'loaded', image: null })
+        return
+      }
     }
 
     dispatch({ type: 'loading' })
@@ -106,7 +111,8 @@ export function useImage(options: UseImageOptions): UseImageResult {
         decode,
         timeout,
         crossOrigin,
-        referrerPolicy
+        referrerPolicy,
+        skipCache
       })
         .then(image => {
           if (!isActive) return
@@ -136,6 +142,7 @@ export function useImage(options: UseImageOptions): UseImageResult {
     referrerPolicy,
     retry,
     sizes,
+    skipCache,
     src,
     srcSet,
     state.reloadKey,

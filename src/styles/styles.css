@@ -3,9 +3,17 @@
   --ribif-delay: 0ms;
   --ribif-easing: ease;
   --ribif-blur-amount: 20px;
-  --ribif-shimmer-color: rgb(255 255 255 / 50%);
-  --ribif-shimmer-speed: 1.8s;
-  --ribif-skeleton-bg: #eee;
+  --ribif-placeholder-duration: var(--ribif-duration);
+  --ribif-shimmer-angle: 112deg;
+  --ribif-shimmer-color: rgb(255 255 255 / 52%);
+  --ribif-shimmer-speed: 1.45s;
+  --ribif-shimmer-size: 55%;
+  --ribif-skeleton-accent: rgb(255 255 255 / 38%);
+  --ribif-skeleton-bg: #e8ebf0;
+  --ribif-skeleton-highlight: #f7f8fb;
+  --ribif-skeleton-opacity: 1;
+  --ribif-skeleton-radius: inherit;
+  --ribif-skeleton-sheen: rgb(255 255 255 / 72%);
   display: inline-block;
   max-width: 100%;
   position: relative;
@@ -19,6 +27,7 @@
 
 .ribif-image,
 .ribif-background {
+  will-change: opacity, filter, transform, clip-path;
   transition:
     opacity var(--ribif-duration) var(--ribif-easing) var(--ribif-delay),
     filter var(--ribif-duration) var(--ribif-easing) var(--ribif-delay),
@@ -52,23 +61,27 @@
 /* ── Fade type: blur-in ─────────────────────────── */
 
 .ribif-image[data-fade-type='blur-in'] {
-  filter: blur(var(--ribif-blur-amount));
+  filter: blur(var(--ribif-blur-amount)) saturate(1.15);
   opacity: 0;
+  transform: scale(1.015);
 }
 
 .ribif-image[data-fade-type='blur-in'][data-loaded='true'] {
-  filter: blur(0);
+  filter: blur(0) saturate(1);
   opacity: 1;
+  transform: scale(1);
 }
 
 .ribif-background[data-fade-type='blur-in'] {
-  filter: blur(var(--ribif-blur-amount));
+  filter: blur(var(--ribif-blur-amount)) saturate(1.15);
   opacity: 0;
+  transform: scale(1.015);
 }
 
 .ribif-root[data-status='loaded'] .ribif-background[data-fade-type='blur-in'] {
-  filter: blur(0);
+  filter: blur(0) saturate(1);
   opacity: 1;
+  transform: scale(1);
 }
 
 /* ── Fade type: slide-up ────────────────────────── */
@@ -135,6 +148,86 @@
   clip-path: inset(0 0 0 0);
 }
 
+/* ── Fade type: zoom-blur ──────────────────────── */
+
+.ribif-image[data-fade-type='zoom-blur'] {
+  filter: blur(calc(var(--ribif-blur-amount) * 0.8)) saturate(1.22) brightness(1.08);
+  opacity: 0;
+  transform: scale(1.075);
+}
+
+.ribif-image[data-fade-type='zoom-blur'][data-loaded='true'] {
+  filter: blur(0) saturate(1) brightness(1);
+  opacity: 1;
+  transform: scale(1);
+}
+
+.ribif-background[data-fade-type='zoom-blur'] {
+  filter: blur(calc(var(--ribif-blur-amount) * 0.8)) saturate(1.22) brightness(1.08);
+  opacity: 0;
+  transform: scale(1.075);
+}
+
+.ribif-root[data-status='loaded'] .ribif-background[data-fade-type='zoom-blur'] {
+  filter: blur(0) saturate(1) brightness(1);
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* ── Fade type: soft-reveal ────────────────────── */
+
+.ribif-image[data-fade-type='soft-reveal'] {
+  clip-path: inset(8% 8% 8% 8% round 20px);
+  filter: blur(calc(var(--ribif-blur-amount) * 0.35)) brightness(1.08);
+  opacity: 0;
+  transform: translateY(10px) scale(0.985);
+}
+
+.ribif-image[data-fade-type='soft-reveal'][data-loaded='true'] {
+  clip-path: inset(0 0 0 0 round 0);
+  filter: blur(0) brightness(1);
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.ribif-background[data-fade-type='soft-reveal'] {
+  clip-path: inset(8% 8% 8% 8% round 20px);
+  filter: blur(calc(var(--ribif-blur-amount) * 0.35)) brightness(1.08);
+  opacity: 0;
+  transform: translateY(10px) scale(0.985);
+}
+
+.ribif-root[data-status='loaded'] .ribif-background[data-fade-type='soft-reveal'] {
+  clip-path: inset(0 0 0 0 round 0);
+  filter: blur(0) brightness(1);
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* ── Fade type: wipe ───────────────────────────── */
+
+.ribif-image[data-fade-type='wipe'] {
+  clip-path: inset(0 100% 0 0);
+  opacity: 1;
+  transform: scale(1.015);
+}
+
+.ribif-image[data-fade-type='wipe'][data-loaded='true'] {
+  clip-path: inset(0 0 0 0);
+  transform: scale(1);
+}
+
+.ribif-background[data-fade-type='wipe'] {
+  clip-path: inset(0 100% 0 0);
+  opacity: 1;
+  transform: scale(1.015);
+}
+
+.ribif-root[data-status='loaded'] .ribif-background[data-fade-type='wipe'] {
+  clip-path: inset(0 0 0 0);
+  transform: scale(1);
+}
+
 /* ── Placeholder ────────────────────────────────── */
 
 .ribif-placeholder {
@@ -143,7 +236,10 @@
   z-index: 1;
   pointer-events: none;
   opacity: 1;
-  transition: opacity var(--ribif-duration) var(--ribif-easing) var(--ribif-delay);
+  transition:
+    opacity var(--ribif-placeholder-duration) var(--ribif-easing) var(--ribif-delay),
+    filter var(--ribif-placeholder-duration) var(--ribif-easing) var(--ribif-delay),
+    transform var(--ribif-placeholder-duration) var(--ribif-easing) var(--ribif-delay);
 }
 
 .ribif-root[data-status='loaded'] .ribif-placeholder {
@@ -153,30 +249,47 @@
 /* ── Skeleton shimmer (industry-leading) ────────── */
 
 .ribif-placeholder-skeleton {
-  background: var(--ribif-skeleton-bg);
+  background:
+    radial-gradient(circle at 22% 18%, var(--ribif-skeleton-accent), transparent 28%),
+    linear-gradient(135deg, var(--ribif-skeleton-bg), var(--ribif-skeleton-highlight));
+  border-radius: var(--ribif-skeleton-radius);
+  opacity: var(--ribif-skeleton-opacity);
   overflow: hidden;
 }
 
 .ribif-placeholder-skeleton::before {
-  animation: ribif-shimmer var(--ribif-shimmer-speed) ease-in-out infinite;
-  background-image: linear-gradient(
-    105deg,
-    transparent 0%,
-    transparent 35%,
-    var(--ribif-shimmer-color) 45%,
-    rgb(255 255 255 / 72%) 50%,
-    var(--ribif-shimmer-color) 55%,
-    transparent 65%,
-    transparent 100%
-  );
+  animation: ribif-shimmer var(--ribif-shimmer-speed) cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  background-image:
+    linear-gradient(
+      var(--ribif-shimmer-angle),
+      transparent 0%,
+      transparent 34%,
+      var(--ribif-shimmer-color) 43%,
+      var(--ribif-skeleton-sheen) 50%,
+      var(--ribif-shimmer-color) 57%,
+      transparent 66%,
+      transparent 100%
+    );
   background-repeat: no-repeat;
-  background-size: 200% 100%;
+  background-size: var(--ribif-shimmer-size) 100%;
   content: '';
+  filter: blur(0.2px);
   height: 100%;
-  left: 0;
+  left: -55%;
   position: absolute;
   top: 0;
-  width: 100%;
+  width: 210%;
+  will-change: transform;
+}
+
+.ribif-placeholder-skeleton::after {
+  background:
+    linear-gradient(to bottom, rgb(255 255 255 / 22%), transparent 42%),
+    linear-gradient(to top, rgb(0 0 0 / 6%), transparent 55%);
+  content: '';
+  inset: 0;
+  mix-blend-mode: soft-light;
+  position: absolute;
 }
 
 /* ── Blur placeholder ───────────────────────────── */
@@ -185,8 +298,14 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  filter: blur(18px);
-  transform: scale(1.04);
+  filter: blur(var(--ribif-blur-amount)) saturate(1.12) brightness(1.04);
+  transform: scale(1.08);
+  transform-origin: center;
+}
+
+.ribif-root[data-status='loaded'] .ribif-placeholder-blur {
+  filter: blur(calc(var(--ribif-blur-amount) * 0.45)) saturate(1.03);
+  transform: scale(1.025);
 }
 
 /* ── Color placeholder ──────────────────────────── */
@@ -205,10 +324,10 @@
 
 @keyframes ribif-shimmer {
   0% {
-    background-position: 200% 0;
+    transform: translateX(-28%);
   }
   100% {
-    background-position: -200% 0;
+    transform: translateX(28%);
   }
 }
 

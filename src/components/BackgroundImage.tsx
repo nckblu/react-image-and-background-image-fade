@@ -38,6 +38,7 @@ export function BackgroundImage({
   timeout,
   crossOrigin,
   referrerPolicy,
+  skipCache,
   fade,
   fadeType,
   duration,
@@ -46,8 +47,11 @@ export function BackgroundImage({
   placeholder,
   blurDataURL,
   color,
+  skeleton,
   renderPlaceholder,
   renderError,
+  placeholderClassName,
+  placeholderStyle,
   containerClassName,
   containerStyle
 }: BackgroundImageProps) {
@@ -59,6 +63,7 @@ export function BackgroundImage({
   const resolvedEasing = easing ?? config.easing
   const resolvedPlaceholder = placeholder === undefined ? config.placeholder ?? 'skeleton' : placeholder
   const resolvedColor = color ?? config.color
+  const resolvedSkeleton = skeleton ?? config.skeleton
   const resolvedRenderPlaceholder = renderPlaceholder ?? config.renderPlaceholder
   const resolvedRenderError = renderError ?? config.renderError
   const resolvedFadeType: FadeType = fadeType ?? config.fadeType ?? 'fade'
@@ -78,7 +83,8 @@ export function BackgroundImage({
     retry,
     timeout,
     crossOrigin,
-    referrerPolicy
+    referrerPolicy,
+    skipCache
   })
 
   const status = image.status
@@ -146,8 +152,11 @@ export function BackgroundImage({
         placeholder={resolvedPlaceholder}
         blurDataURL={blurDataURL}
         color={resolvedColor}
+        skeleton={resolvedSkeleton}
         renderPlaceholder={resolvedRenderPlaceholder}
         renderError={resolvedRenderError}
+        placeholderClassName={placeholderClassName}
+        placeholderStyle={placeholderStyle}
         state={placeholderState}
       />
     </div>
